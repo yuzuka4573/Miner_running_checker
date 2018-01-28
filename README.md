@@ -11,13 +11,15 @@ I will write it soon (or clone and build this project!!)
   
 ## Setup
 This program need "profile.txt" in same directory.
-In profile.txt, write like it (4line 1sets!!):
-===============================================================  
+In profile.txt, write like it (4line 1sets!!)
+
+-------------------------------------------------------------------------------------------------------------------------------  
 Your Miner Name (Ex. My mining Rig001)
 Coin Type(Ex. BTC)
 MPOS API URLs[getuserstates] (Ex. https://[your mining pool].com/index.php?page=api&action=getuserstatus&api_key=[your API key])
 MPOS API URLs[getuserbalance] (Ex. https://[your mining pool].com/index.php?page=api&action=getuserbalance&api_key=[your API key])
-===============================================================  
+-------------------------------------------------------------------------------------------------------------------------------  
+
 In MPOS API URLs, You can find API key and URLs in My Account>Edit Account>Account Details>API Key (meybe...?)  
 
 ## How to use  
