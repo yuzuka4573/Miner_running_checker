@@ -10,8 +10,8 @@ Runnning program, set timer interval which get information from mining pool.
 I will write it soon (or clone and build this project!!)  
   
 ## Setup
-This program need "profile.txt" in same directory.
-In profile.txt, write like it (4line 1sets!!)  
+This program need "profile.txt" in same directory.  
+In profile.txt, write profile like this (4line 1sets!!)  
   
 ---  
 Your Miner Name (Ex. My mining Rig001)  
