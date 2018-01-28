@@ -30,4 +30,7 @@ https://[your mining pool].com/index.php?page=api&action=getuserbalance&api_key=
 1. Set profile.txt  
 2. Running Program  
 3. set timer interval  
-
+  
+  
+## Downloads  
+[Download Link]<https://drive.google.com/open?id=1PSfq2BIPh0sUD-LYyoHpIT_dZ0VbNR28>
