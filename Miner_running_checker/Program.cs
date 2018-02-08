@@ -26,6 +26,9 @@ namespace Miner_running_checker
         public static int runninTime = 0;
         public static int timerInterval = 0;
         public static string menu = "";
+        public static string[,] Clist;
+        public static int Cnum = 0;
+
         static void Main(string[] args)
         {
 
@@ -71,9 +74,37 @@ namespace Miner_running_checker
             }
             catch (Exception e)
             {
-                Console.WriteLine("something occured!!");
+                Console.WriteLine("something occured in read profile.txt!!");
                 Console.WriteLine(e);
             }
+
+            //make DB of coin rate urls
+            try {
+                string line = "";
+                ArrayList al2 = new ArrayList();
+                using (StreamReader sr = new StreamReader(
+                        "coin.txt", Encoding.GetEncoding("utf-8")))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        al2.Add(line);
+                    }
+                }
+                Clist = new string[al2.Count, 3];
+                Cnum = al2.Count;
+                for (int c = 0; c < al2.Count; c++) {
+                    string[] dump = (al2[c].ToString()).Split('#');
+                    Clist[c, 0] = dump[0];
+                    Clist[c, 1] = dump[1];
+                    Clist[c, 2] = dump[2];
+                }
+            }
+            catch (Exception f)
+            {
+                Console.WriteLine("something occured in read coin.txt !!");
+                Console.WriteLine(f);
+            }
+
 
             //sample check
           //  Filecheck();
@@ -217,6 +248,15 @@ namespace Miner_running_checker
                     Console.Write("\r\n");
                 }
                 Calc(con);
+                //display Current balance in other currency
+                for (int c = 0; c < Cnum; c++) {
+                    if (Clist[c, 0].ToLower() == data[con].Coin.ToLower()) {
+                        GetCoinRate(Clist[c,1],Clist[c,2], double.Parse(saver[con, 5]));
+                        break;
+                    }
+                    
+                }
+                
                 Console.WriteLine("--------------------------------------------------------");
 
                 Console.WriteLine();
@@ -382,6 +422,50 @@ namespace Miner_running_checker
             {
                 Console.WriteLine("You type no number\r\nTimer set 5 min");
 
+            }
+        }
+
+
+        public static void GetCoinRate(string urls, string type,double CB) {
+            try
+            {
+                string statedata = Gethtml(urls);
+                string[] separator = new string[] { "\r\n" };
+                /* foreach (string a in separator) {
+                     Console.WriteLine(a);
+                 }*/
+                // Console.WriteLine("raw\r\n" + statedata);
+                // Console.WriteLine("Current Balance : "+CB);
+           
+
+                switch (type.ToLower())
+                {
+                    default:
+                        break;
+
+                    case "zaif":
+                        Console.WriteLine("Read Zaif");
+                        string[] dump = statedata.Split(' ');
+                        Console.Write("Coin Rate : ");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(dump[1]);
+                        Console.ResetColor(); 
+                        float dump2 = float.Parse(dump[1]);
+                        Console.WriteLine("Current Balance :" + dump2 * CB);
+                        break;
+
+                    case "bitflyer":
+                        Console.WriteLine("Read Bitflyer");
+                        foreach (string a in separator) {
+                            Console.WriteLine(a);
+                        }
+                        break;
+
+                }
+            }
+            catch (Exception g) {
+                Console.WriteLine("something occured in Get Coin Rate Function!");
+                Console.WriteLine(g);
             }
         }
     }
